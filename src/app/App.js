@@ -102,7 +102,7 @@ export default function App() {
 			<section className='photos'>
 				<div className='photos-center'>
 					{photos.map((image, index) => {
-						return <Photo key={image.id} {...image} />;
+						return <Photo key={index} {...image} />;
 					})}
 				</div>
 				{loading && <Loader />}
