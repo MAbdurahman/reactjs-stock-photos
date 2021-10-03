@@ -13,16 +13,22 @@ export default function App() {
 	const [loading, setLoading] = useState(false);
 	const [photos, setPhotos] = useState([]);
 	const [query, setQuery] = useState('');
+	const [page, setPage] = useState(1);
 
 	//**************** functions ****************//
 	const fetchImages = async () => {
 		setLoading(true);
+		const urlPage = `&page=${page}`;
+		const perPage = `&per_page=12`;
 		let url;
-		url = `${mainUrl}${clientID}`;
+		url = `${mainUrl}${clientID}${urlPage}${perPage}`;
 		try {
 			const response = await fetch(url);
 			const data = await response.json();
-			setPhotos(data);
+			
+			setPhotos((oldPhotos) => {
+				return [...oldPhotos, ...data]
+			})
 			setLoading(false);
 		} catch (error) {
 			setLoading(false);
@@ -38,6 +44,19 @@ export default function App() {
 	useEffect(() => {
 		fetchImages();
 	}, []);
+
+	useEffect(() => {
+		const event = window.addEventListener('scroll', () => {
+			if ((!loading && window.innerHeight + window.scrollY) >= (document.body.scrollHeight)) {
+				setPage((oldPage) => {
+					return oldPage + 1;
+				})
+			}
+		});
+
+		return () => window.removeEventListener('scroll', event);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [page]);
 
 	return (
 		<main className='app'>
@@ -61,7 +80,6 @@ export default function App() {
 					</button>
 				</form>
 			</header>
-			{/* <section className='search'></section> */}
 			<section className='photos'>
 				<div className='photos-center'>
 					{photos.map((image, index) => {

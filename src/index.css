@@ -162,12 +162,12 @@ small,
 	height: 5vmin;
 	margin-top: 1em;
 	pointer-events: none;
-	animation: app-logo-spin infinite 20s linear;
+	animation: app-logo-spin infinite 8s linear;
 }
 
 @media (prefers-reduced-motion: no-preference) {
 	.app-logo {
-		animation: app-logo-spin infinite 20s linear;
+		animation: app-logo-spin infinite 8s linear;
 	}
 }
 
