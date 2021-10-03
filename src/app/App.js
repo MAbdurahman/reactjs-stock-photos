@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Logo from './../img/logo.svg';
 import { FaSearch } from 'react-icons/fa';
 import Photo from './../components/Photo';
+import Loader from './../components/Loader';
 
 export default function App() {
 	//**************** variables ****************//
@@ -36,21 +37,16 @@ export default function App() {
 			setPhotos(oldPhotos => {
 				if (query && page === 1) {
 					return data.results;
-
 				} else if (query) {
 					return [...oldPhotos, ...data.results];
-
 				} else {
 					return [...oldPhotos, ...data];
 				}
-
 			});
 			setLoading(false);
-
 		} catch (error) {
 			setLoading(false);
 			console.log(error);
-
 		}
 	};
 
@@ -109,7 +105,7 @@ export default function App() {
 						return <Photo key={image.id} {...image} />;
 					})}
 				</div>
-				{loading && <h2 className='loading'>Loading...</h2>}
+				{loading && <Loader />}
 			</section>
 		</main>
 	);
