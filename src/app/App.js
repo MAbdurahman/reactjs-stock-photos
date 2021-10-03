@@ -20,43 +20,66 @@ export default function App() {
 		setLoading(true);
 		const urlPage = `&page=${page}`;
 		const perPage = `&per_page=12`;
+		const urlQuery = `&query=${query}`;
 		let url;
-		url = `${mainUrl}${clientID}${urlPage}${perPage}`;
+
+		if (query) {
+			url = `${searchUrl}${clientID}${urlPage}${perPage}${urlQuery}`;
+		} else {
+			url = `${mainUrl}${clientID}${urlPage}${perPage}`;
+		}
+
 		try {
 			const response = await fetch(url);
 			const data = await response.json();
-			
-			setPhotos((oldPhotos) => {
-				return [...oldPhotos, ...data]
-			})
+
+			setPhotos(oldPhotos => {
+				if (query && page === 1) {
+					return data.results;
+
+				} else if (query) {
+					return [...oldPhotos, ...data.results];
+
+				} else {
+					return [...oldPhotos, ...data];
+				}
+
+			});
 			setLoading(false);
+
 		} catch (error) {
 			setLoading(false);
 			console.log(error);
+
 		}
 	};
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		console.log('handle submit');
+		setPage(1);
+		fetchImages();
 	};
 
 	useEffect(() => {
 		fetchImages();
-	}, []);
+		// eslint-disable-next-line
+	}, [page]);
 
 	useEffect(() => {
 		const event = window.addEventListener('scroll', () => {
-			if ((!loading && window.innerHeight + window.scrollY) >= (document.body.scrollHeight)) {
-				setPage((oldPage) => {
+			if (
+				(!loading && window.innerHeight + window.scrollY) >=
+				document.body.scrollHeight
+			) {
+				setPage(oldPage => {
 					return oldPage + 1;
-				})
+				});
 			}
 		});
 
 		return () => window.removeEventListener('scroll', event);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [page]);
+	}, []);
 
 	return (
 		<main className='app'>
