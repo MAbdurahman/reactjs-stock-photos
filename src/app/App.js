@@ -4,49 +4,46 @@ import { FaSearch } from 'react-icons/fa';
 import Photo from './../components/Photo';
 
 export default function App() {
-	
 	//**************** variables ****************//
 
 	const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
 	const mainUrl = `https://api.unsplash.com/photos/`;
 	const searchUrl = `https://api.unsplash.com/search/photos/`;
 
-  const [loading, setLoading] = useState(false);
-  const [photos, setPhotos] = useState([]);
-  const [query, setQuery] = useState('')
-
+	const [loading, setLoading] = useState(false);
+	const [photos, setPhotos] = useState([]);
+	const [query, setQuery] = useState('');
 
 	//**************** functions ****************//
 	const fetchImages = async () => {
-    setLoading(true);
+		setLoading(true);
 		let url;
-    url = `${mainUrl}${clientID}`;
+		url = `${mainUrl}${clientID}`;
 		try {
 			const response = await fetch(url);
-      const data = await response.json();
-      setPhotos(data);
-      setLoading(false);
+			const data = await response.json();
+			setPhotos(data);
+			setLoading(false);
 		} catch (error) {
-      setLoading(false);
+			setLoading(false);
 			console.log(error);
 		}
 	};
-  
-  const handleSubmit = (e) => {
-    console.log('handle submit')
-  }
 
-  useEffect(() => {
-    fetchImages();
-  }, []);
+	const handleSubmit = e => {
+		e.preventDefault();
+		console.log('handle submit');
+	};
+
+	useEffect(() => {
+		fetchImages();
+	}, []);
 
 	return (
 		<main className='app'>
 			<header className='app-header'>
 				<img src={Logo} className='app-logo' alt='logo' />
-				<h1>ReactJS Stock Photos</h1>
-			</header>
-			<section className='search'>
+				<h3>ReactJS Stock Photos</h3>
 				<form className='search-form'>
 					<input
 						type='text'
@@ -63,6 +60,15 @@ export default function App() {
 						<FaSearch />
 					</button>
 				</form>
+			</header>
+			{/* <section className='search'></section> */}
+			<section className='photos'>
+				<div className='photos-center'>
+					{photos.map((image, index) => {
+						return <Photo key={image.id} {...image} />;
+					})}
+				</div>
+				{loading && <h2 className='loading'>Loading...</h2>}
 			</section>
 		</main>
 	);
