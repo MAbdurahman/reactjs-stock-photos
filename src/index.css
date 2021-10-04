@@ -239,10 +239,7 @@ small,
 	/*...tablet landscape and desktop styles */
 }
 
-/*table portrait layout (768px to 959px) */
-@media only screen and (max-width: 959px) {
-	/*... tablet portrait styles */
-}
+
 
 /*mobile landscape layout (480px to 767px) */
 @media only screen and (max-width: 767px) {
@@ -268,7 +265,6 @@ small,
 	width: 90vw;
 	max-width: var(--max-width);
 	margin: 0 auto;
-
 }
 form.search-form {
 	z-index: 1000;
@@ -317,7 +313,6 @@ form.search-form {
 /*=============================================
 					photos section
 ================================================*/
-
 .photos {
 	width: 99%;
 	margin-top: 11.2em;
@@ -326,13 +321,9 @@ form.search-form {
 	padding: 5rem 0;
 }
 .photos-center {
-	/*   width: 90vw;
-  max-width: var(--max-width); */
 	margin: 0 auto;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	/* grid-template-columns: repeat(auto-fill, minmax(3, 1fr)); */
-	/* gap: 2rem; */
 	gap: 0.5em;
 }
 .photo {
@@ -374,15 +365,6 @@ form.search-form {
 .photo:hover .photo-info {
 	transform: translateY(0);
 }
-/* @media screen and (min-width: 538px) {
-	.photos-center {
-		grid-template-columns: repeat(auto-fill, minmax(368px, 1fr));
-		grid-template-columns: repeat(auto-fill, minmax(2, 1fr));
-	}
-	.search-form {
-		max-width: var(--fixed-width);
-	}
-} */
 
 /*=============================================
             Loader
@@ -392,7 +374,7 @@ form.search-form {
 	margin-top: 2em;
 	text-align: center;
 	color: var(--clr-grey-5);
-/* 	padding: 3rem; */
+	/* 	padding: 3rem; */
 }
 .lds-dual-ring {
 	display: inline-block;
@@ -419,22 +401,75 @@ form.search-form {
 	}
 }
 
-/*table portrait layout (768px to 959px) */
-@media only screen and (max-width: 959px) {
-	/*... tablet portrait styles */
+@media only screen and (max-width: 768px) {
+	/*... mobile landscape styles */
+	.photos {
+		margin-top: 11.333em;
+	}
+	.photos-center {
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.5em;
+	}
 }
-
-/*mobile landscape layout (480px to 767px) */
-@media only screen and (max-width: 767px) {
-	/*...mobile landscape styles */
+/*table portrait layout (768px to 959px) */
+@media only screen and (max-width: 736px) {
+	/*... tablet portrait styles */
+	.photos {
+		margin-top: 10.7em;
+	}
 }
 
 /*mobile portrait layout (479px or less) */
-@media only screen and (max-width: 539px) {
+@media only screen and (max-width: 479px) {
 	/*...mobile portrait styles */
+	
+}
+@media only screen and (max-width: 416px) {
+	/*...mobile portrait styles */
+	/* .photos {
+		margin-top: 10.5em;
+	} */
 	.photos-center {
-		grid-template-columns: repeat(2, 1fr);
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(1, 1fr);
+		gap: 0.5em;
 	}
+}
+@media only screen and (max-width: 376px) {
+	/*...mobile portrait styles */
+	.photos {
+		margin-top: 10.2em;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	/*...mobile portrait styles */
+	.photos {
+		margin-top: 10.7em;
+	}
+}
+
+@media only screen
+and (min-device-width : 812px)
+and (max-device-height : 375px)
+and (orientation : landscape) {
+/* Styles */
+.photos {
+	margin-top: 9em;
+}
+}
+
+@media only screen
+and (min-device-width : 568px)
+and (max-device-height : 320px)
+and (orientation : landscape) {
+/* Styles */
+.photos {
+	margin-top: 9.7em;
+}
 }
 
 /*=============================================
@@ -449,6 +484,3 @@ form.search-form {
 	}
 }
 
-/*=============================================
-            keyframe 
-================================================*/
